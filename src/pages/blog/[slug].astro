@@ -1,0 +1,26 @@
+---
+// Disable prerendering for this dynamic route so the page is generated at
+// request time. Without this, the build would attempt to prerender every
+// possible slug and fail because Supabase credentials are not available.
+export const prerender = false;
+
+import Base from '../../layouts/Base.astro';
+import { supabase } from '../../lib/supabase';
+
+const { slug } = Astro.params;
+const { data } = await supabase
+  .from('posts')
+  .select('*')
+  .eq('slug', slug)
+  .maybeSingle();
+---
+<Base title={data?.title ?? 'Post not found'}>
+  {data ? (
+    <>
+      <h1 class="text-3xl font-semibold">{data.title}</h1>
+      <article class="prose prose-zinc mt-6" set:html={data.content} />
+    </>
+  ) : (
+    <p>Post not found.</p>
+  )}
+</Base>

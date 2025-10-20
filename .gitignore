@@ -1,0 +1,57 @@
+# === Build Outputs ===
+dist/
+.output/
+.vercel/
+.netlify/
+.tmp/
+.cache/
+
+# === Dependencies ===
+node_modules/
+
+# === Environment Variables ===
+.env
+.env.*
+!.env.example
+
+# === Astro Generated Files ===
+.astro/
+
+# === OS / Editor Artifacts ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# === Logs and Reports ===
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+coverage/
+
+# === Package Managers ===
+# Keep lockfiles under version control for reproducible builds
+# Uncomment to ignore if you prefer not to commit them:
+# package-lock.json
+# pnpm-lock.yaml
+# yarn.lock
+
+# === Supabase Artifacts ===
+supabase/.temp/
+supabase/functions/.netlify/
+.supabase/
+
+# === GitHub Pages / CI artifacts ===
+# GitHub Actions build artifacts
+*.tgz
+*.tar.gz
+
+# === Misc ===
+*.local
+*.log
+*.pid
+*.seed
+*.sqlite
