@@ -1,24 +1,43 @@
 ---
-// Disable prerendering for this dynamic route so the page is generated at
-// request time. Without this, the build would attempt to prerender every
-// possible slug and fail because Supabase credentials are not available.
-// export const prerender = false;
-
 import Base from '../../layouts/Base.astro';
 import { supabase } from '../../lib/supabase';
 
+// 1. Tell Astro which slugs to build at *build time*
+export async function getStaticPaths() {
+  const { data: posts, error } = await supabase
+    .from('posts')
+    .select('slug');
+
+  if (error) {
+    console.error('Error in getStaticPaths:', error);
+    throw error;
+  }
+
+  // posts should be an array of rows like { slug: 'my-post' }
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
+
+// 2. For each generated page, we get `slug` from Astro.params
 const { slug } = Astro.params;
-const { data } = await supabase
+
+const { data: post, error: postError } = await supabase
   .from('posts')
   .select('*')
   .eq('slug', slug)
-  .maybeSingle();
+  .single();
+
+if (postError) {
+  console.error('Error loading post:', postError);
+}
 ---
-<Base title={data?.title ?? 'Post not found'}>
-  {data ? (
+
+<Base title={post?.title ?? 'Post not found'}>
+  {post ? (
     <>
-      <h1 class="text-3xl font-semibold">{data.title}</h1>
-      <article class="prose prose-zinc mt-6" set:html={data.content} />
+      <h1 class="text-3xl font-semibold">{post.title}</h1>
+      <article class="prose prose-zinc mt-6" set:html={post.content} />
     </>
   ) : (
     <p>Post not found.</p>
