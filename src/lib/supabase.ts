@@ -1,8 +1,16 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize a Supabase client using environment variables. These variables must
-// be defined in your `.env` file or set as GitHub secrets during CI builds.
-export const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL!,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY!
-);
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl) {
+  console.error('PUBLIC_SUPABASE_URL is missing at build time');
+  throw new Error('PUBLIC_SUPABASE_URL is not set');
+}
+
+if (!supabaseAnonKey) {
+  console.error('PUBLIC_SUPABASE_ANON_KEY is missing at build time');
+  throw new Error('PUBLIC_SUPABASE_ANON_KEY is not set');
+}
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
