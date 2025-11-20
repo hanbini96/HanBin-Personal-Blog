@@ -1,6 +1,7 @@
 {
   "name": "astro-supabase-starter",
   "version": "0.1.0",
+  "packageManager": "pnpm@10.22.0",
   "description": "Astro + Supabase starter for GitHub Pages",
   "scripts": {
     "dev": "astro dev",
