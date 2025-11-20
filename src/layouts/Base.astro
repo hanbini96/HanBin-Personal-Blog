@@ -1,0 +1,39 @@
+---
+export interface Props {
+  title?: string;
+}
+
+const { title = "My Site" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+
+    <!-- Astro will handle absolute/relative URL rewriting correctly -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Inject Astro styles -->
+    <style is:global>
+      /* optional global CSS */
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <!-- your nav here -->
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <!-- your footer -->
+    </footer>
+  </body>
+</html>
