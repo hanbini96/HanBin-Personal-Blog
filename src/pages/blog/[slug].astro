@@ -9,7 +9,7 @@ export async function getStaticPaths() {
     .select('slug');
 
   if (error) {
-    console.error('Error in getStaticPaths:', error);
+    // console.error('Error in getStaticPaths:', error);
     throw error;
   }
 
@@ -29,7 +29,7 @@ const { data: post, error: postError } = await supabase
   .single();
 
 if (postError) {
-  console.error('Error loading post:', postError);
+  // console.error('Error loading post:', postError);
 }
 ---
 

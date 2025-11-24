@@ -1,8 +1,33 @@
 ---
 import Base from '../../layouts/Base.astro';
-import BlogList from '../../components/BlogList.tsx';
+import { supabase } from '../../lib/supabase';
+
+const { data: posts, error } = await supabase
+  .from('posts')
+  .select('slug, title, created_at')
+  .order('created_at', { ascending: false });
+
+if (error) {
+  console.error('Error loading posts:', error);
+}
 ---
+
 <Base title="Blog">
-  <h1 class="text-2xl font-semibold">Blog</h1>
-  <BlogList client:load />
+  <h1 class="text-3xl font-semibold mb-6">Blog</h1>
+  {posts?.length ? (
+    <ul class="space-y-4">
+      {posts.map((post) => (
+        <li>
+          <a class="text-blue-500 hover:underline" href={`/blog/${post.slug}/`}>
+            {post.title}
+          </a>
+          <p class="text-sm text-zinc-500">
+            {new Date(post.created_at).toLocaleDateString()}
+          </p>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>No posts yet.</p>
+  )}
 </Base>
