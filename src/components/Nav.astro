@@ -1,10 +1,7 @@
 ---
-// src/components/Nav.astro
 import BaseLink from './BaseLink.astro';
 
-// Normalize current path so it works with BASE_URL
 const rawPath = Astro.url.pathname;
-// e.g. "/HanBin-Personal-Blog/blog/" -> "/blog/"
 const currentPath = rawPath.replace(import.meta.env.BASE_URL, '/') || '/';
 
 const links = [
@@ -18,19 +15,19 @@ function isActive(match: string) {
 }
 ---
 
-<nav class="flex items-center justify-between py-4">
-  <div class="font-semibold text-lg">
-    <BaseLink href="">HanBin</BaseLink>
-  </div>
+<nav class="flex items-center justify-between">
+  <BaseLink href="" class="font-semibold">
+    HanBin
+  </BaseLink>
 
-  <ul class="flex gap-4 text-sm">
+  <ul class="hidden sm:flex gap-4 text-sm">
     {links.map((link) => (
       <li>
         <BaseLink
           href={link.href}
           class={
             'hover:underline ' +
-            (isActive(link.match) ? 'font-semibold' : 'text-zinc-500')
+            (isActive(link.match) ? 'font-semibold' : 'text-zinc-400')
           }
         >
           {link.label}
@@ -38,4 +35,6 @@ function isActive(match: string) {
       </li>
     ))}
   </ul>
+
+  <!-- TODO: Simple mobile version: stacked under nav -->
 </nav>

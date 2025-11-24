@@ -1,8 +1,42 @@
 ---
 import Base from '../layouts/Base.astro';
-import Nav from '../components/Nav.astro';
+import BaseLink from '../components/BaseLink.astro';
 ---
-<Base title="Home">
-  <h1 class="text-3xl font-semibold">Welcome</h1>
-  <p class="mt-2">This is HanBin Baik's Personal Blog</p>
+
+<Base title="Home – HanBin Marrero-Baik">
+  <section class="space-y-4">
+    <h1 class="text-3xl sm:text-4xl font-semibold">
+      Building sustainable systems as a developer and technologist.
+    </h1>
+
+    <p class="text-zinc-300">
+      I'm HanBin, a full-stack developer and project manager currently exploring
+      how to build reliable, maintainable systems with Astro, Supabase, and
+      GitHub Actions—while balancing deep technical learning with real-world delivery.
+    </p>
+
+    <div class="flex flex-wrap gap-3 pt-2">
+      <BaseLink
+        href="blog/"
+        class="inline-flex items-center px-4 py-2 rounded-md border border-zinc-700 text-sm hover:bg-zinc-800"
+      >
+        Read the blog
+      </BaseLink>
+      <BaseLink
+        href="about/"
+        class="inline-flex items-center px-4 py-2 rounded-md text-sm text-zinc-300 hover:underline"
+      >
+        Learn more about me
+      </BaseLink>
+    </div>
+  </section>
+
+  <section class="mt-10 space-y-3">
+    <h2 class="text-lg font-semibold">Current focus</h2>
+    <ul class="list-disc list-inside text-zinc-300 text-sm space-y-1">
+      <li>Stabilizing my Astro + Supabase blog deployment pipeline.</li>
+      <li>Improving responsive design and developer experience.</li>
+      <li>Planning a migration toward a fully dynamic, auth-enabled blog.</li>
+    </ul>
+  </section>
 </Base>
