@@ -1,0 +1,16 @@
+---
+// src/components/BaseLink.astro
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+
+// prepend BASE_URL automatically
+const url = `${import.meta.env.BASE_URL}${href}`;
+---
+
+<a href={url} class={className}>
+  <slot />
+</a>

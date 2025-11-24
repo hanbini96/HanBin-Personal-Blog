@@ -1,4 +1,6 @@
 ---
+import Nav from '../components/Nav.astro';
+
 export interface Props {
   title?: string;
 }
@@ -11,29 +13,21 @@ const { title = "My Site" } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <title>{title}</title>
-
-    <!-- Astro will handle absolute/relative URL rewriting correctly -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <!-- Inject Astro styles -->
-    <style is:global>
-      /* optional global CSS */
-    </style>
   </head>
 
-  <body>
-    <header>
-      <!-- your nav here -->
+  <body class="min-h-screen bg-zinc-950 text-zinc-100">
+    <header class="max-w-3xl mx-auto px-4">
+      <Nav />
     </header>
 
-    <main>
+    <main class="max-w-3xl mx-auto px-4 mt-8">
       <slot />
     </main>
 
-    <footer>
-      <!-- your footer -->
+    <footer class="max-w-3xl mx-auto px-4 mt-12 mb-8 text-xs text-zinc-500">
+      © {new Date().getFullYear()} HanBin
     </footer>
   </body>
 </html>
