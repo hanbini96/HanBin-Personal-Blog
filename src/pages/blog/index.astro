@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import BaseLink from '../../components/BaseLink.astro';
 import { supabase } from '../../lib/supabase';
 
 const { data: posts, error } = await supabase
@@ -14,14 +15,19 @@ if (error) {
 
 <Base title="Blog">
   <h1 class="text-3xl font-semibold mb-6">Blog</h1>
+
   {posts?.length ? (
-    <ul class="space-y-4">
+    <ul class="space-y-6">
       {posts.map((post) => (
         <li>
-          <a class="text-blue-500 hover:underline" href={`/blog/${post.slug}/`}>
+          <BaseLink
+            href={`blog/${post.slug}/`}
+            class="text-blue-400 hover:underline text-lg"
+          >
             {post.title}
-          </a>
-          <p class="text-sm text-zinc-500">
+          </BaseLink>
+
+          <p class="text-xs text-zinc-500 mt-1">
             {new Date(post.created_at).toLocaleDateString()}
           </p>
         </li>

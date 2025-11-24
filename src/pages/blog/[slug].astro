@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import BaseLink from '../../components/BaseLink.astro';
 import { supabase } from '../../lib/supabase';
 
 // 1. Tell Astro which slugs to build at *build time*
@@ -9,8 +10,11 @@ export async function getStaticPaths() {
     .select('slug');
 
   if (error) {
-    // console.error('Error in getStaticPaths:', error);
     throw error;
+  }
+
+  if (!posts || posts.length === 0) {
+    return [];
   }
 
   // posts should be an array of rows like { slug: 'my-post' }
@@ -29,11 +33,18 @@ const { data: post, error: postError } = await supabase
   .single();
 
 if (postError) {
+  // You could log or report this if you want
   // console.error('Error loading post:', postError);
 }
 ---
 
 <Base title={post?.title ?? 'Post not found'}>
+  <div class="mb-6">
+    <BaseLink href="blog/" class="text-sm text-zinc-500 hover:underline">
+      ← Back to Blog
+    </BaseLink>
+  </div>
+
   {post ? (
     <>
       <h1 class="text-3xl font-semibold">{post.title}</h1>
