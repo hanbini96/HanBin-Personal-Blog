@@ -9,7 +9,7 @@ import react from '@astrojs/react';
 // custom domain or <username>.github.io root repository.
 export default defineConfig({
   site: 'https://hanbini96.github.io',
-  base: "/HanBin-Personal-Blog/",
+  base: "/HanBin-Baik-Blog/",
   output: 'static',
   integrations: [react(), tailwind()]
 });
