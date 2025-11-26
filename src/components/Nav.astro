@@ -15,7 +15,7 @@ function isActive(match: string) {
 }
 ---
 
-<nav class="flex items-center justify-between">
+<nav class="relative flex items-center justify-between">
   <BaseLink href="" class="font-semibold">
     HanBin
   </BaseLink>
@@ -36,5 +36,33 @@ function isActive(match: string) {
     ))}
   </ul>
 
-  <!-- TODO: Simple mobile version: stacked under nav -->
+  <details class="sm:hidden">
+    <summary
+      class="flex items-center gap-2 rounded-md border border-zinc-800/80 px-3 py-2 text-sm text-zinc-100 shadow-sm shadow-zinc-900/40 hover:bg-zinc-900/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-200/50 list-none [&::-webkit-details-marker]:hidden"
+      aria-label="Toggle navigation menu"
+    >
+      <span>Menu</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+        <path fill-rule="evenodd" d="M3 7.5A1.5 1.5 0 014.5 6h15a1.5 1.5 0 010 3h-15A1.5 1.5 0 013 7.5zM3 12a1.5 1.5 0 011.5-1.5h15A1.5 1.5 0 0121 12a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 12zm1.5 3a1.5 1.5 0 000 3h15a1.5 1.5 0 000-3h-15z" clip-rule="evenodd" />
+      </svg>
+    </summary>
+
+    <div class="absolute right-0 top-full mt-2 w-44 rounded-lg border border-zinc-800/70 bg-zinc-900/95 p-2 shadow-xl shadow-zinc-900/70">
+      <ul class="flex flex-col gap-2 text-sm">
+        {links.map((link) => (
+          <li>
+            <BaseLink
+              href={link.href}
+              class={
+                'block rounded-md px-2 py-2 hover:bg-zinc-800/80 ' +
+                (isActive(link.match) ? 'font-semibold' : 'text-zinc-300')
+              }
+            >
+              {link.label}
+            </BaseLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </details>
 </nav>
